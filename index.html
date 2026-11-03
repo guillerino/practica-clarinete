@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#2b6cb0" />
+  <title>Práctica de notas · Clarinete</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>🎵 Práctica de clarinete</h1>
+    <button id="btnSettings" class="icon-btn" aria-label="Ajustes" title="Ajustes">⚙️</button>
+  </header>
+
+  <main class="stage">
+    <!-- Zona donde aparece la nota -->
+    <section id="display" class="display">
+      <div id="staffWrap" class="card staff-card">
+        <svg id="staff" viewBox="0 0 320 200" role="img" aria-label="Pentagrama"></svg>
+      </div>
+
+      <div id="fingeringWrap" class="card fingering-card">
+        <svg id="fingering" viewBox="0 0 120 520" role="img" aria-label="Digitación de clarinete"></svg>
+      </div>
+
+      <div id="nameWrap" class="card name-card">
+        <div id="noteName" class="note-name">—</div>
+      </div>
+    </section>
+
+    <!-- Controles rápidos en pantalla -->
+    <section class="quick">
+      <div class="quick-toggles">
+        <button type="button" class="toggle-btn" id="qStaff" aria-pressed="true">🎼 Pentagrama</button>
+        <button type="button" class="toggle-btn" id="qFingering" aria-pressed="true">🎷 Clarinete</button>
+        <button type="button" class="toggle-btn" id="qName" aria-pressed="true">🔤 Nombre</button>
+      </div>
+      <div class="quick-speed">
+        <label for="qSpeed">Cada <strong id="qSpeedLabel">3</strong> s</label>
+        <input type="range" id="qSpeed" min="1" max="10" step="1" value="3" />
+      </div>
+    </section>
+
+    <p id="startHint" class="start-hint">Pulsa <strong>▶ Play</strong> para empezar</p>
+  </main>
+
+  <!-- Controles principales -->
+  <div class="controls">
+    <button id="btnPlay" class="play-btn">▶ Play</button>
+    <button id="btnNext" class="next-btn" title="Siguiente nota">⏭ Siguiente</button>
+  </div>
+
+  <div class="counter">
+    Notas practicadas: <span id="count">0</span>
+  </div>
+
+  <!-- Panel de ajustes -->
+  <div id="settingsOverlay" class="overlay hidden">
+    <div class="panel" role="dialog" aria-label="Ajustes">
+      <div class="panel-head">
+        <h2>Ajustes</h2>
+        <button id="btnCloseSettings" class="icon-btn" aria-label="Cerrar">✕</button>
+      </div>
+
+      <div class="panel-body">
+        <fieldset>
+          <legend>Mostrar</legend>
+          <label class="switch-row">
+            <span>Pentagrama</span>
+            <input type="checkbox" id="showStaff" checked />
+          </label>
+          <label class="switch-row">
+            <span>Digitación</span>
+            <input type="checkbox" id="showFingering" checked />
+          </label>
+          <label class="switch-row">
+            <span>Nombre de la nota</span>
+            <input type="checkbox" id="showName" checked />
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Velocidad</legend>
+          <label class="slider-row">
+            <span>Cada <strong id="speedLabel">3</strong> s</span>
+            <input type="range" id="speed" min="1" max="10" step="1" value="3" />
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Orden</legend>
+          <div class="seg">
+            <label><input type="radio" name="order" value="random" checked /><span>Aleatorio</span></label>
+            <label><input type="radio" name="order" value="asc" /><span>Ascendente</span></label>
+            <label><input type="radio" name="order" value="desc" /><span>Descendente</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Alteraciones</legend>
+          <div class="seg seg-col">
+            <label><input type="radio" name="accidentals" value="natural" checked /><span>Solo naturales</span></label>
+            <label><input type="radio" name="accidentals" value="basic" /><span>Naturales + Fa♯ y Si♭</span></label>
+            <label><input type="radio" name="accidentals" value="all" /><span>Todas</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Rango de notas</legend>
+          <label class="select-row">
+            <span>Desde</span>
+            <select id="rangeFrom"></select>
+          </label>
+          <label class="select-row">
+            <span>Hasta</span>
+            <select id="rangeTo"></select>
+          </label>
+          <div class="presets">
+            <button type="button" data-preset="beginner">Principiante</button>
+            <button type="button" data-preset="first">Primer año</button>
+            <button type="button" data-preset="full">Completo</button>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Extras</legend>
+          <label class="switch-row">
+            <span>Sonido de la nota</span>
+            <input type="checkbox" id="sound" />
+          </label>
+          <label class="switch-row">
+            <span>Mantener pantalla encendida</span>
+            <input type="checkbox" id="wakeLock" checked />
+          </label>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+
+  <script src="fingering.js"></script>
+  <script src="notes.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
